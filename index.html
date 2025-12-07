@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -74,6 +73,26 @@
             content: none;
         }
 
+        /* CLASSES DE TRANSIÇÃO PARA TROCA DE SEÇÃO */
+        .section-transition {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        }
+        .hidden-section {
+            opacity: 0;
+            transform: translateY(20px);
+            position: absolute; /* Permite esconder mantendo o tamanho do container */
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 1.5rem; /* Ajuste para o padding do container */
+            border-radius: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         /* Animações de entrada (Define o efeito "fade-in-up") */
         .animate-fade-in-up {
@@ -181,61 +200,135 @@
     <!-- Container principal, centralizado na tela -->
     <div id="linktree-container" class="linktree-container w-full max-w-lg mx-auto bg-white rounded-3xl">
 
-        <!-- HEADER / PERFIL -->
-        <header class="text-center mb-8">
-            <!-- Imagem de Perfil (usando o logo da Confeitaria - Sugestão: Use o logo redondo da Célia Venâncio) -->
-            <img
-                src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/logo.png?raw=true"
-                alt="Logo Célia Venâncio Confeitaria"
-                class="profile-pic w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-gray-100 object-cover animate-fade-in-up delay-100"
-                onerror="this.onerror=null; this.src='https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/logo.png?raw=true"
-            >
+        <!-- CONTEÚDO PRINCIPAL (LISTA DE LINKS) -->
+        <div id="links-section" class="section-transition">
+            <!-- HEADER / PERFIL -->
+            <header class="text-center mb-8">
+                <!-- Imagem de Perfil (usando o logo da Confeitaria) -->
+                <img
+                    src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/logo.png?raw=true"
+                    alt="Logo Célia Venâncio Confeitaria"
+                    class="profile-pic w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-gray-100 object-cover animate-fade-in-up delay-100"
+                    onerror="this.onerror=null; this.src='https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/logo.png?raw=true'"
+                >
 
-            <!-- TÍTULO PRINCIPAL: Gradiente suave Marrom/Coral -->
-            <h1 class="text-3xl md:text-4xl font-extrabold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-stone-800 to-fuchsia-600 animate-fade-in-up delay-300">
-                Célia Venâncio Confeitaria
+                <!-- TÍTULO PRINCIPAL: Gradiente suave Marrom/Coral -->
+                <h1 class="text-3xl md:text-4xl font-extrabold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-stone-800 to-fuchsia-600 animate-fade-in-up delay-300">
+                    Célia Venâncio Confeitaria
+                </h1>
+
+                <!-- Subtítulo / Descrição de introdução -->
+                <p class="mt-2 text-base text-gray-600 max-w-xs mx-auto animate-fade-in-up delay-500">
+                    O sabor caseiro que adoça a vida!
+                </p>
+                <p class="mt-1 text-sm text-gray-500 animate-fade-in-up delay-700 font-medium">
+                    @confeitaria.cv
+                </p>
+            </header>
+
+            <!-- LINKS -->
+            <main class="space-y-4 md:space-y-5">
+
+                <!-- 1. PORTFÓLIO DE PRODUTOS (DESTAQUE - Botão Principal Coral/Marrom) - CHAMA A FUNÇÃO JS -->
+                <!-- target="_blank" foi removido pois abriremos na mesma página. -->
+                <a href="#portfolio-section" onclick="showPortfolio(event)" class="link-button portfolio-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-900">
+                    <i class="fas fa-cake-candles mr-3"></i>
+                    NOSSO PORTFÓLIO DE BOLOS
+                </a>
+
+                <!-- 2. WHATSAPP (PEDIDOS - DESTAQUE - Botão Verde) -->
+                <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%20de%20bolo%2Fdoce!" target="_blank" class="link-button whatsapp-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1000">
+                    <i class="fab fa-whatsapp mr-3"></i>
+                    FAÇA SEU PEDIDO AGORA!
+                </a>
+
+                <!-- 3. INSTAGRAM (Rede Social Secundária - GRADIENTE CROMÁTICO) -->
+                <a href="https://www.instagram.com/confeitaria.cv" target="_blank" class="link-button instagram-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1100">
+                    <i class="fab fa-instagram mr-3"></i>
+                    Acompanhe no Instagram
+                </a>
+
+            </main>
+
+            <!-- FOOTER -->
+            <footer class="mt-8 text-center text-gray-400 text-xs animate-fade-in-up delay-1200">
+                <p>Doces feitos com carinho em Goiânia (62) 99437-3918</p>
+            </footer>
+        </div>
+
+        <!-- SEÇÃO OCULTA "EM DESENVOLVIMENTO" -->
+        <div id="portfolio-section" class="hidden-section opacity-0 section-transition">
+            <div class="text-6xl mb-4" style="color: var(--primary-coral);">
+                <i class="fas fa-tools"></i>
+            </div>
+            <h1 class="text-3xl font-bold mb-3" style="color: var(--primary-dark);">
+                Portfólio em Construção!
             </h1>
-
-            <!-- Subtítulo / Descrição de introdução -->
-            <p class="mt-2 text-base text-gray-600 max-w-xs mx-auto animate-fade-in-up delay-500">
-                O sabor caseiro que adoça a vida!
+            <p class="text-gray-700 mb-8">
+                Estamos preparando fotos deliciosas para o nosso novo catálogo de bolos. <br>Volte em breve para conferir!
             </p>
-            <p class="mt-1 text-sm text-gray-500 animate-fade-in-up delay-700 font-medium">
-                @confeitaria.cv
-            </p>
-        </header>
+            
+            <!-- Botão para voltar à página principal (Linktree) -->
+            <button onclick="hidePortfolio()" class="back-button inline-flex items-center justify-center w-full p-3 rounded-xl text-lg font-bold" style="background: var(--primary-coral); color: white;">
+                <i class="fas fa-arrow-left mr-2"></i> Voltar aos Links
+            </button>
+        </div>
 
-        <!-- LINKS -->
-        <main class="space-y-4 md:space-y-5">
-
-            <!-- 1. PORTFÓLIO DE PRODUTOS (DESTAQUE - Botão Principal Coral/Marrom) -->
-            <a href="portfolio.html" target="_blank" class="link-button portfolio-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-900">
-                <i class="fas fa-cake-candles mr-3"></i>
-                NOSSO PORTFÓLIO DE BOLOS
-            </a>
-
-            <!-- 2. WHATSAPP (PEDIDOS - DESTAQUE - Botão Verde) -->
-            <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%20de%20bolo%2Fdoce!" target="_blank" class="link-button whatsapp-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1000">
-                <i class="fab fa-whatsapp mr-3"></i>
-                FAÇA SEU PEDIDO AGORA!
-            </a>
-
-            <!-- 3. INSTAGRAM (Rede Social Secundária - GRADIENTE CROMÁTICO) -->
-            <a href="https://www.instagram.com/confeitaria.cv" target="_blank" class="link-button instagram-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1100">
-                <i class="fab fa-instagram mr-3"></i>
-                Acompanhe no Instagram
-            </a>
-
-        </main>
-
-        <!-- FOOTER -->
-        <footer class="mt-8 text-center text-gray-400 text-xs animate-fade-in-up delay-1200">
-            <p>Doces feitos com carinho em Goiânia (62) 99437-3918</p>
-        </footer>
     </div>
 
-    <!-- Script: Garante que as animações de entrada rodem apenas uma vez -->
+    <!-- Script: Garante que as animações de entrada rodem apenas uma vez e a lógica de troca de seção -->
     <script>
+        const linksSection = document.getElementById('links-section');
+        const portfolioSection = document.getElementById('portfolio-section');
+
+        // Função para mostrar a seção de Portfólio
+        function showPortfolio(event) {
+            event.preventDefault(); // Impede o salto da âncora
+            
+            // 1. Esconde a seção de links
+            linksSection.style.opacity = '0';
+            linksSection.style.transform = 'translateY(-20px)';
+            
+            // 2. Após a transição (400ms), esconde totalmente e mostra a nova
+            setTimeout(() => {
+                linksSection.style.display = 'none';
+                
+                // 3. Mostra a seção de portfólio
+                portfolioSection.style.position = 'static'; // Volta para o fluxo normal para ocupar espaço
+                portfolioSection.style.pointerEvents = 'auto'; // Reabilita cliques
+                
+                // 4. Anima a entrada
+                setTimeout(() => {
+                    portfolioSection.style.opacity = '1';
+                    portfolioSection.style.transform = 'translateY(0)';
+                }, 50); // Pequeno atraso para garantir que o display mude
+                
+            }, 400); 
+        }
+
+        // Função para voltar para a seção de Links
+        function hidePortfolio() {
+            // 1. Esconde a seção de portfólio
+            portfolioSection.style.opacity = '0';
+            portfolioSection.style.transform = 'translateY(20px)';
+
+            // 2. Após a transição (400ms), esconde totalmente e mostra a de links
+            setTimeout(() => {
+                portfolioSection.style.position = 'absolute'; // Volta a ser absoluto/oculto
+                portfolioSection.style.pointerEvents = 'none';
+                
+                // 3. Mostra a seção de links
+                linksSection.style.display = 'block';
+                
+                // 4. Anima a entrada
+                setTimeout(() => {
+                    linksSection.style.opacity = '1';
+                    linksSection.style.transform = 'translateY(0)';
+                }, 50);
+
+            }, 400);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const animatedElements = document.querySelectorAll('.animate-fade-in-up');
             animatedElements.forEach(el => {
