@@ -77,6 +77,7 @@
         .section-transition {
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
         }
+        /* Estilo da seção oculta (Portfólio) - AGORA TEM SCROLL */
         .hidden-section {
             opacity: 0;
             transform: translateY(20px);
@@ -88,11 +89,89 @@
             height: 100%;
             padding: 1.5rem; /* Ajuste para o padding do container */
             border-radius: 2rem;
+            /* Adicionado overflow-y para permitir rolagem no portfólio */
+            overflow-y: auto; 
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Alinha o conteúdo ao topo */
             align-items: center;
         }
+
+        /* Estilo para cada item do portfólio */
+        .portfolio-item {
+            display: flex;
+            flex-direction: column; /* Padrão mobile: foto em cima, texto embaixo */
+            gap: 1rem;
+            background-color: var(--secondary-blush); /* Fundo suave para cada item */
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 10px rgba(62, 33, 6, 0.1);
+            margin-bottom: 1.5rem;
+            align-items: center; /* Centraliza verticalmente o conteúdo em mobile */
+        }
+        
+        @media (min-width: 640px) { /* Layout Desktop/Tablet: foto e texto lado a lado */
+            .portfolio-item {
+                flex-direction: row; 
+                text-align: left;
+                align-items: center; /* Centraliza itens na linha */
+            }
+        }
+        
+        /* Estilo para as imagens 1:1 (Usado nos Bolos Caseiros) */
+        /* CORREÇÃO AQUI: Garante o aspecto 1/1 e controla o max-width */
+        .portfolio-image {
+            width: 100%; /* Ocupa 100% do seu contêiner (w-full em mobile) */
+            border-radius: 0.75rem;
+            object-fit: cover;
+            aspect-ratio: 1/1; /* Garante que a altura seja igual à largura */
+            /* Removendo a altura fixa e o max-width fixo para permitir fluidez */
+        }
+
+        @media (min-width: 640px) {
+            .portfolio-image {
+                width: 100%; /* Ocupa 100% da sua div pai (2/5) */
+            }
+        }
+        
+        /* Estilo para o GRID de fotos de Aniversário */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: #FFF;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(62, 33, 6, 0.1);
+        }
+
+        .photo-grid img {
+            width: 100%;
+            aspect-ratio: 1/1; /* 1:1 obrigatório */
+            object-fit: cover;
+            border-radius: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        /* Estilo para a subseção (título dos bolos) */
+        .portfolio-subheader {
+            width: 100%;
+            text-align: center;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid var(--primary-coral);
+            border-top: 2px solid var(--primary-coral);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
 
         /* Animações de entrada (Define o efeito "fade-in-up") */
         .animate-fade-in-up {
@@ -233,11 +312,11 @@
                 <!-- target="_blank" foi removido pois abriremos na mesma página. -->
                 <a href="#portfolio-section" onclick="showPortfolio(event)" class="link-button portfolio-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-900">
                     <i class="fas fa-cake-candles mr-3"></i>
-                    NOSSO PORTFÓLIO DE BOLOS
+                    VER NOSSO CARDÁPIO COMPLETO
                 </a>
 
                 <!-- 2. WHATSAPP (PEDIDOS - DESTAQUE - Botão Verde) -->
-                <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%20de%20bolo%2Fdoce!" target="_blank" class="link-button whatsapp-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1000">
+                <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%2Fdoce!" target="_blank" class="link-button whatsapp-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1000">
                     <i class="fab fa-whatsapp mr-3"></i>
                     FAÇA SEU PEDIDO AGORA!
                 </a>
@@ -256,22 +335,224 @@
             </footer>
         </div>
 
-        <!-- SEÇÃO OCULTA "EM DESENVOLVIMENTO" -->
+        <!-- SEÇÃO OCULTA DE PORTFÓLIO (AGORA COM CONTEÚDO REAL E SEÇÕES) -->
         <div id="portfolio-section" class="hidden-section opacity-0 section-transition">
-            <div class="text-6xl mb-4" style="color: var(--primary-coral);">
-                <i class="fas fa-tools"></i>
-            </div>
-            <h1 class="text-3xl font-bold mb-3" style="color: var(--primary-dark);">
-                Portfólio em Construção!
-            </h1>
-            <p class="text-gray-700 mb-8">
-                Estamos preparando fotos deliciosas para o nosso novo catálogo de bolos. <br>Volte em breve para conferir!
-            </p>
             
-            <!-- Botão para voltar à página principal (Linktree) -->
-            <button onclick="hidePortfolio()" class="back-button inline-flex items-center justify-center w-full p-3 rounded-xl text-lg font-bold" style="background: var(--primary-coral); color: white;">
-                <i class="fas fa-arrow-left mr-2"></i> Voltar aos Links
+            <h2 class="text-3xl font-bold mb-2 pt-2" style="color: var(--primary-dark);">
+                Nosso Cardápio <i class="fas fa-list-check ml-2" style="color: var(--primary-coral);"></i>
+            </h2>
+
+            <!-- SEÇÃO 1: ESPECIAIS DO MÊS / TEMPORADA (MOVDA PARA O TOPO) -->
+            <h3 class="portfolio-subheader text-xl">✨ ESPECIAL DO MÊS (PROMOÇÃO) ✨</h3>
+
+            <!-- ITEM 1: Especial (Exemplo) -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <!-- Imagem -->
+                <!-- CORREÇÃO: Div da imagem agora usa w-full em mobile e w-2/5 em sm: -->
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <!-- Substitua o link abaixo pela URL da sua foto do Especial do Mês -->
+                    <img 
+                        src="https://placehold.co/150x150/f28779/3e2106?text=OFERTA+DO+MES" 
+                        alt="Especial do Mês em Promoção" 
+                        class="portfolio-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/f28779/3e2106?text=OFERTA+DO+MES'"
+                    >
+                </div>
+                <!-- Descrição e CTA -->
+                <!-- CORREÇÃO: Div do texto agora usa w-full em mobile e w-3/5 em sm: -->
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Cenoura c/ Cobertura Especial</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Especial%20do%20M%C3%AAs!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomende o Especial!
+                    </a>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: BOLOS CASEIROS (7 ITENS) -->
+            <h3 class="portfolio-subheader text-xl">BOLOS CASEIROS (Fofinhos)</h3>
+            
+            <!-- ITEM 2: BOLO DE BANANA CARAMELIZADO -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <!-- Imagem -->
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img 
+                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/BANANA.png?raw=true" 
+                        alt="Bolo de Banana Caramelizado" 
+                        class="portfolio-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+1'"
+                    >
+                </div>
+                <!-- Descrição e CTA -->
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Banana Caramelizado</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Banana!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
+                    </a>
+                </div>
+            </div>
+
+            <!-- ITEM 3: BOLO DE LARANJA -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <!-- Imagem -->
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img 
+                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/LARANJA.png?raw=true" 
+                        alt="Bolo de Laranja Fresca" 
+                        class="portfolio-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+2'"
+                    >
+                </div>
+                <!-- Descrição e CTA -->
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Laranja</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Laranja!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
+                    </a>
+                </div>
+            </div>
+            
+            <!-- ITEM 4: BOLO DE CENOURA -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CENOURA.png?raw=true" alt="Bolo de Cenoura" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+3'">
+                </div>
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Cenoura c/ Chocolate</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Cenoura!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
+                    </a>
+                </div>
+            </div>
+
+            <!-- ITEM 5: BOLO DE ABACAXI -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/ABACAXI.png?raw=true" alt="Bolo de Fubá" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+4'">
+                </div>
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Abacaxi</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Fub%C3%A1!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
+                    </a>
+                </div>
+            </div>
+            
+            <!-- ITEM 6: BOLO DE CHOCOLATE -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CHOCOLATE%20COM%20MORANGO.png?raw=true" alt="Bolo de Chocolate" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+5'">
+                </div>
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Chocolate com Morango</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
+                    </a>
+                </div>
+            </div>
+
+            <!-- ITEM 7: BOLO DE QUEIJO -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/QUEIJO.png?raw=true" alt="Bolo de Leite Ninho" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+6'">
+                </div>
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Queijo</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Leite%20Ninho!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
+                    </a>
+                </div>
+            </div>
+
+            
+            <!-- SEÇÃO 3: BOLOS DE ANIVERSÁRIO (1 item com CTA + 18 fotos em grade) -->
+            <h3 class="portfolio-subheader text-xl">BOLOS DE ANIVERSÁRIO (Personalizados)</h3>
+
+            <!-- ITEM 9: BOLO FESTIVO (Modelo principal com CTA de orçamento) -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <!-- Imagem -->
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <img 
+                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/Gemini_Generated_Image_kvyhp6kvyhp6kvyh.png?raw=true" 
+                        alt="Bolo Festivo Personalizado" 
+                        class="portfolio-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/f28779/3e2106?text=BOLO+DE+FESTA'"
+                    >
+                </div>
+                <!-- Descrição e CTA -->
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolos de Festa Personalizados</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20um%20Bolo%20Personalizado!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Solicitar Orçamento!
+                    </a>
+                </div>
+            </div>
+
+            <!-- GALERIA DE FOTOS DE ANIVERSÁRIO (18 ITENS SEM TÍTULO/BOTÃO) -->
+            <div class="w-full max-w-md mx-auto text-center mt-4">
+                <p class="text-sm text-gray-700 mb-3">Veja alguns de nossos trabalhos:</p>
+                <div class="photo-grid">
+                    <!-- Gerando 18 placeholders para a galeria (Bolo de Aniversário) -->
+                    <!-- Os links src devem ser substituídos pelas suas 18 fotos reais -->
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(1).png?raw=true" alt="Amostra de Bolo 1">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(2).png?raw=true" alt="Amostra de Bolo 2">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(3).png?raw=true" alt="Amostra de Bolo 3">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(4).png?raw=true" alt="Amostra de Bolo 4">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(5).png?raw=true" alt="Amostra de Bolo 5">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(6).png?raw=true" alt="Amostra de Bolo 6">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(7).png?raw=true" alt="Amostra de Bolo 7">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(8).png?raw=true" alt="Amostra de Bolo 8">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(9).png?raw=true" alt="Amostra de Bolo 9">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(10).png?raw=true" alt="Amostra de Bolo 10">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(11).png?raw=true" alt="Amostra de Bolo 11">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(12).png?raw=true" alt="Amostra de Bolo 12">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(13).png?raw=true" alt="Amostra de Bolo 13">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(14).png?raw=true" alt="Amostra de Bolo 14">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(15).png?raw=true" alt="Amostra de Bolo 15">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(16).png?raw=true" alt="Amostra de Bolo 16">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(17).png?raw=true" alt="Amostra de Bolo 17">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(18).png?raw=true" alt="Amostra de Bolo 18">
+                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(19).png?raw=true" alt="Amostra de Bolo 19">
+                </div>
+            </div>
+
+            <!-- SEÇÃO 4: OUTROS DOCES -->
+            <h3 class="portfolio-subheader text-xl">OUTROS DOCES</h3>
+
+            <!-- ITEM 10: Outros Doces (Exemplo) -->
+            <div class="portfolio-item w-full max-w-md mx-auto">
+                <!-- Imagem -->
+                <div class="w-full sm:w-2/5 flex-shrink-0">
+                    <!-- Substitua o link abaixo pela URL da sua foto de Outros Doces -->
+                    <img 
+                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/Gemini_Generated_Image_1lbadh1lbadh1lba.png?raw=true" 
+                        alt="Brigadeiros e Docinhos" 
+                        class="portfolio-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/f28779/3e2106?text=BRIGADEIROS'"
+                    >
+                </div>
+                <!-- Descrição e CTA -->
+                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
+                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Brigadeiros Gourmet</h3>
+                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20Doces!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
+                        <i class="fab fa-whatsapp mr-2"></i> Encomende Doces!
+                    </a>
+                </div>
+            </div>
+            
+            <!-- NOVO BOTÃO FINAL: BOLO PERSONALIZADO (AO SEU GOSTO) -->
+            <h3 class="portfolio-subheader text-xl">NÃO ENCONTROU O QUE PROCURA?</h3>
+            <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20um%20bolo%20personalizado%20(ao%20meu%20gosto)!" target="_blank" class="link-button portfolio-link flex items-center justify-center w-full max-w-md p-4 rounded-xl text-lg mt-4 mb-8 font-extrabold">
+                <i class="fas fa-palette mr-3"></i>
+                MONTE SEU BOLO PERSONALIZADO!
+            </a>
+
+
+            <!-- Botão para voltar ao Linktree -->
+            <button onclick="hidePortfolio()" class="back-button inline-flex items-center justify-center w-full max-w-md p-3 mt-8 mb-2 rounded-xl text-lg font-bold" style="background: var(--primary-dark); color: white;">
+                <i class="fas fa-arrow-up mr-2"></i> Voltar aos Links Principais
             </button>
+            <p class="text-xs text-gray-500 mb-4">Você também pode rolar para cima!</p>
+
         </div>
 
     </div>
@@ -301,6 +582,8 @@
                 setTimeout(() => {
                     portfolioSection.style.opacity = '1';
                     portfolioSection.style.transform = 'translateY(0)';
+                    // Garante que o scroll vá para o topo da seção de portfólio
+                    portfolioSection.scrollTop = 0; 
                 }, 50); // Pequeno atraso para garantir que o display mude
                 
             }, 400); 
