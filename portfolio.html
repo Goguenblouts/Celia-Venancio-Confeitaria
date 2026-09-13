@@ -1,6 +1,4 @@
-from pathlib import Path
-
-html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -528,10 +526,3 @@ html = r'''<!DOCTYPE html>
 
 </body>
 </html>
-'''
-
-path = Path("/mnt/data/index-celia-venancio.html")
-path.write_text(html, encoding="utf-8")
-
-print(f"Arquivo criado: {path}")
-print(f"Tamanho: {path.stat().st_size / 1024:.1f} KB")
