@@ -1,631 +1,528 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Título exibido na aba do navegador -->
-    <title>Célia Venâncio Confeitaria - Seu Pedido Começa Aqui!</title>
-    <!-- Descrição para SEO e compartilhamento -->
-    <meta name="description" content="Acesse nosso Cardápio, faça pedidos via WhatsApp e encontre nossos doces artesanais, bolos caseiros e de festa. O sabor que faltava!">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#b91c1c">
+  <meta name="description" content="Célia Venâncio Massas & Bolos — comida caseira, massas, bolos e doces. Peça pelo iFood ou WhatsApp.">
+  <title>Célia Venâncio — Massas & Bolos</title>
 
-    <!-- Tailwind CSS CDN: Framework para estilização rápida -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Font Awesome CDN for Icons: Biblioteca de ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --red: #c62828;
+      --red-dark: #941b1b;
+      --cream: #fffaf3;
+      --ink: #241b17;
+      --muted: #756861;
+      --line: #eee4dc;
+      --green: #16803b;
+    }
 
-    <!-- Google Font: Inter: Fonte principal para o design -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <style>
-        /* Variáveis de Cores (Paleta atualizada: Chocolate, Coral, Blush) */
-        :root {
-            --primary-dark: #3e2106; /* Marrom Escuro/Chocolate */
-            --primary-coral: #f28779; /* Coral/Salmão (Destaque Principal) */
-            --secondary-blush: #ffc8be; /* Light Peach/Blush (Fundo Suave) */
-            --light-bg: #FFFFFF;        /* Fundo principal (Branco limpo) */
-            --card-bg: #FFFFFF;        /* Fundo dos cards/container */
-            --text-dark: #3e2106;     /* Texto escuro (Marrom) */
-            --text-light: #F9F9F9;     /* Texto claro */
-            
-            /* Instagram Gradient Colors */
-            --insta-start: #833AB4; /* Roxo */
-            --insta-end: #E1306C; /* Rosa */
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            /* Fundo gradiente suave, tons de blush e branco */
-            background: linear-gradient(-45deg, var(--secondary-blush), #FFFFFF, var(--secondary-blush), #FFFFFF);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 2rem 0.5rem;
-            overflow-x: hidden;
-            position: relative;
-        }
+    .serif { font-family: "Playfair Display", serif; }
 
-        /* Animação do gradiente de fundo */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    .hero {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.16), transparent 28%),
+        linear-gradient(135deg, #8e1717 0%, #c62828 55%, #e84b36 100%);
+    }
 
-        /* CONTAINER PRINCIPAL COM SOMBRA SUAVE E CANTOS ARREDONDADOS */
-        .linktree-container {
-            position: relative;
-            z-index: 10;
-            padding: 1.5rem;
-            border-radius: 2rem;
-            background-color: var(--card-bg);
-            /* Sombra marrom suave e leve borda com o novo Coral */
-            box-shadow: 0 15px 40px rgba(62, 33, 6, 0.2), 0 0 0 5px rgba(242, 135, 121, 0.1);
-            max-width: 90%;
-            margin-top: 1rem;
-        }
+    .shadow-soft {
+      box-shadow: 0 12px 35px rgba(70, 38, 25, .10);
+    }
 
-        /* Removendo o Efeito de Doce na Borda para um visual mais limpo */
-        .linktree-container::before {
-            content: none;
-        }
+    .product-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
 
-        /* CLASSES DE TRANSIÇÃO PARA TROCA DE SEÇÃO */
-        .section-transition {
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-        }
-        /* Estilo da seção oculta (Portfólio) - AGORA TEM SCROLL */
-        .hidden-section {
-            opacity: 0;
-            transform: translateY(20px);
-            position: absolute; /* Permite esconder mantendo o tamanho do container */
-            pointer-events: none;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 1.5rem; /* Ajuste para o padding do container */
-            border-radius: 2rem;
-            /* Adicionado overflow-y para permitir rolagem no portfólio */
-            overflow-y: auto; 
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* Alinha o conteúdo ao topo */
-            align-items: center;
-        }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(70, 38, 25, .13);
+    }
 
-        /* Estilo para cada item do portfólio */
-        .portfolio-item {
-            display: flex;
-            flex-direction: column; /* Padrão mobile: foto em cima, texto embaixo */
-            gap: 1rem;
-            background-color: var(--secondary-blush); /* Fundo suave para cada item */
-            padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 10px rgba(62, 33, 6, 0.1);
-            margin-bottom: 1.5rem;
-            align-items: center; /* Centraliza verticalmente o conteúdo em mobile */
-        }
-        
-        @media (min-width: 640px) { /* Layout Desktop/Tablet: foto e texto lado a lado */
-            .portfolio-item {
-                flex-direction: row; 
-                text-align: left;
-                align-items: center; /* Centraliza itens na linha */
-            }
-        }
-        
-        /* Estilo para as imagens 1:1 (Usado nos Bolos Caseiros) */
-        /* CORREÇÃO AQUI: Garante o aspecto 1/1 e controla o max-width */
-        .portfolio-image {
-            width: 100%; /* Ocupa 100% do seu contêiner (w-full em mobile) */
-            border-radius: 0.75rem;
-            object-fit: cover;
-            aspect-ratio: 1/1; /* Garante que a altura seja igual à largura */
-            /* Removendo a altura fixa e o max-width fixo para permitir fluidez */
-        }
+    .product-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: #f4ebe3;
+    }
 
-        @media (min-width: 640px) {
-            .portfolio-image {
-                width: 100%; /* Ocupa 100% da sua div pai (2/5) */
-            }
-        }
-        
-        /* Estilo para o GRID de fotos de Aniversário */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 colunas */
-            gap: 0.5rem;
-            margin-top: 1rem;
-            padding: 0.5rem;
-            background-color: #FFF;
-            border-radius: 1rem;
-            box-shadow: 0 2px 8px rgba(62, 33, 6, 0.1);
-        }
+    .category-pill {
+      white-space: nowrap;
+      transition: all .2s ease;
+    }
 
-        .photo-grid img {
-            width: 100%;
-            aspect-ratio: 1/1; /* 1:1 obrigatório */
-            object-fit: cover;
-            border-radius: 0.5rem;
-            transition: transform 0.3s;
-        }
+    .category-pill.active,
+    .category-pill:hover {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+    }
 
-        .photo-grid img:hover {
-            transform: scale(1.05);
-            z-index: 10;
-        }
+    .sticky-order {
+      position: fixed;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      z-index: 50;
+      width: min(92%, 520px);
+    }
 
-        /* Estilo para a subseção (título dos bolos) */
-        .portfolio-subheader {
-            width: 100%;
-            text-align: center;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            padding: 0.5rem 0;
-            border-bottom: 2px solid var(--primary-coral);
-            border-top: 2px solid var(--primary-coral);
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
+    .toast {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 20px);
+      transition: all .25s ease;
+    }
 
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
 
-        /* Animações de entrada (Define o efeito "fade-in-up") */
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        /* Keyframes da animação de entrada */
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        /* Atrasos nas animações */
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-700 { animation-delay: 0.7s; }
-        .delay-900 { animation-delay: 0.9s; }
-        .delay-1000 { animation-delay: 1.0s; }
-        .delay-1100 { animation-delay: 1.1s; }
+    .fade-up {
+      animation: fadeUp .6s ease both;
+    }
 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Estilo da Imagem de Perfil */
-        .profile-pic {
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            cursor: pointer;
-            box-shadow: 0 0 0 6px var(--card-bg); /* Borda branca grossa */
-        }
-        /* Efeito hover da foto de perfil: Gira um pouco e destaca com o Coral */
-        .profile-pic:hover {
-            transform: rotate(-3deg) scale(1.05);
-            box-shadow: 0 0 0 6px var(--card-bg), 0 0 25px rgba(242, 135, 121, 0.8);
-        }
-
-        /* Estilo dos Botões (Link-Button) */
-        .link-button {
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border: 2px solid transparent;
-        }
-
-        /* Efeito hover geral dos botões (suavemente para cima e com sombra) */
-        .link-button:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Estilo específico para o BOTÃO DE PEDIDO (WHATSAPP - MANTIDO VERDE) */
-        .whatsapp-link {
-            background-color: #25D366;
-            color: white;
-            border-color: #128C7E;
-            font-weight: 800;
-        }
-        .whatsapp-link:hover {
-            background-color: #128C7E;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.7);
-        }
-
-        /* Estilo específico para o BOTÃO PRINCIPAL (PORTFÓLIO - GRADIENTE CORAL/MARROM) */
-        .portfolio-link {
-            /* Gradiente Coral e Marrom */
-            background: linear-gradient(45deg, var(--primary-coral), var(--primary-dark));
-            color: var(--text-light); /* Texto claro para contraste no fundo escuro */
-            box-shadow: 0 8px 25px rgba(242, 135, 121, 0.6);
-            font-weight: 800;
-        }
-        .portfolio-link:hover {
-            background: linear-gradient(45deg, var(--primary-dark), var(--primary-coral));
-            box-shadow: 0 10px 30px rgba(242, 135, 121, 0.8);
-        }
-        
-        /* Estilo específico para o BOTÃO INSTAGRAM (Cromático Roxo-Rosa) */
-        .instagram-link {
-            background: linear-gradient(45deg, var(--insta-start), var(--insta-end));
-            color: white !important; 
-            border: none;
-            font-weight: 800;
-            box-shadow: 0 8px 25px rgba(225, 48, 108, 0.6);
-        }
-        .instagram-link:hover {
-            background: linear-gradient(-45deg, var(--insta-start), var(--insta-end));
-            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.8);
-        }
-        /* Garantindo que o ícone do Instagram seja branco no gradiente */
-        .instagram-link i {
-            color: white !important; 
-        }
-
-        /* Otimizações para Mobile (Garante responsividade) */
-        @media (max-width: 768px) {
-            .linktree-container {
-                padding: 1rem;
-            }
-            h1 { font-size: 2.25rem; }
-            p { font-size: 0.85rem; }
-            .link-button { padding: 0.8rem; font-size: 1rem; }
-            .profile-pic { width: 100px; height: 100px; }
-        }
-    </style>
+    @media (min-width: 768px) {
+      .sticky-order { display: none; }
+    }
+  </style>
 </head>
-<body class="text-dark">
-    <!-- Container principal, centralizado na tela -->
-    <div id="linktree-container" class="linktree-container w-full max-w-lg mx-auto bg-white rounded-3xl">
 
-        <!-- CONTEÚDO PRINCIPAL (LISTA DE LINKS) -->
-        <div id="links-section" class="section-transition">
-            <!-- HEADER / PERFIL -->
-            <header class="text-center mb-8">
-                <!-- Imagem de Perfil (usando o logo da Confeitaria) -->
-                <img
-                    src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/logo.png?raw=true"
-                    alt="Logo Célia Venâncio Confeitaria"
-                    class="profile-pic w-28 h-28 md:w-32 md:h-32 rounded-full mx-auto mb-4 border-4 border-gray-100 object-cover animate-fade-in-up delay-100"
-                    onerror="this.onerror=null; this.src='https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/logo.png?raw=true'"
-                >
+<body>
 
-                <!-- TÍTULO PRINCIPAL: Gradiente suave Marrom/Coral -->
-                <h1 class="text-3xl md:text-4xl font-extrabold mb-1 text-transparent bg-clip-text bg-gradient-to-r from-stone-800 to-fuchsia-600 animate-fade-in-up delay-300">
-                    Célia Venâncio Confeitaria
-                </h1>
+  <!-- HEADER -->
+  <header class="hero text-white">
+    <nav class="max-w-6xl mx-auto px-5 py-5 flex items-center justify-between">
+      <a href="#" class="font-extrabold text-lg tracking-tight">Célia Venâncio</a>
+      <div class="hidden md:flex gap-6 text-sm font-semibold">
+        <a href="#cardapio" class="hover:opacity-80">Cardápio</a>
+        <a href="#sobre" class="hover:opacity-80">Sobre nós</a>
+        <a href="#contato" class="hover:opacity-80">Contato</a>
+      </div>
+    </nav>
 
-                <!-- Subtítulo / Descrição de introdução -->
-                <p class="mt-2 text-base text-gray-600 max-w-xs mx-auto animate-fade-in-up delay-500">
-                    O sabor caseiro que adoça a vida!
-                </p>
-                <p class="mt-1 text-sm text-gray-500 animate-fade-in-up delay-700 font-medium">
-                    @confeitaria.cv
-                </p>
-            </header>
+    <section class="max-w-6xl mx-auto px-5 pt-8 pb-16 md:pt-14 md:pb-24">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/20 px-4 py-2 text-sm font-semibold mb-5">
+            <span class="w-2 h-2 rounded-full bg-green-300"></span>
+            Atendimento em Trindade e região
+          </div>
 
-            <!-- LINKS -->
-            <main class="space-y-4 md:space-y-5">
+          <h1 class="serif text-5xl md:text-7xl leading-[.95] font-extrabold mb-5">
+            Sabor de casa,<br>
+            <span class="text-orange-100">feito com carinho.</span>
+          </h1>
 
-                <!-- 1. PORTFÓLIO DE PRODUTOS (DESTAQUE - Botão Principal Coral/Marrom) - CHAMA A FUNÇÃO JS -->
-                <!-- target="_blank" foi removido pois abriremos na mesma página. -->
-                <a href="#portfolio-section" onclick="showPortfolio(event)" class="link-button portfolio-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-900">
-                    <i class="fas fa-cake-candles mr-3"></i>
-                    VER NOSSO CARDÁPIO COMPLETO
-                </a>
+          <p class="text-lg md:text-xl text-white/85 max-w-xl leading-relaxed mb-8">
+            Massas, pratos, bolos e doces preparados para deixar seu dia mais gostoso.
+            Escolha seu pedido e receba em casa.
+          </p>
 
-                <!-- 2. WHATSAPP (PEDIDOS - DESTAQUE - Botão Verde) -->
-                <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido%2Fdoce!" target="_blank" class="link-button whatsapp-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1000">
-                    <i class="fab fa-whatsapp mr-3"></i>
-                    FAÇA SEU PEDIDO AGORA!
-                </a>
-
-                <!-- 3. INSTAGRAM (Rede Social Secundária - GRADIENTE CROMÁTICO) -->
-                <a href="https://www.instagram.com/confeitaria.cv" target="_blank" class="link-button instagram-link flex items-center justify-center w-full p-4 rounded-xl text-lg animate-fade-in-up delay-1100">
-                    <i class="fab fa-instagram mr-3"></i>
-                    Acompanhe no Instagram
-                </a>
-
-            </main>
-
-            <!-- FOOTER -->
-            <footer class="mt-8 text-center text-gray-400 text-xs animate-fade-in-up delay-1200">
-                <p>Doces feitos com carinho em Goiânia (62) 99437-3918</p>
-            </footer>
-        </div>
-
-        <!-- SEÇÃO OCULTA DE PORTFÓLIO (AGORA COM CONTEÚDO REAL E SEÇÕES) -->
-        <div id="portfolio-section" class="hidden-section opacity-0 section-transition">
-            
-            <h2 class="text-3xl font-bold mb-2 pt-2" style="color: var(--primary-dark);">
-                Nosso Cardápio <i class="fas fa-list-check ml-2" style="color: var(--primary-coral);"></i>
-            </h2>
-
-            <!-- SEÇÃO 1: ESPECIAIS DO MÊS / TEMPORADA (MOVDA PARA O TOPO) -->
-            <h3 class="portfolio-subheader text-xl">✨ ESPECIAL DO MÊS (PROMOÇÃO) ✨</h3>
-
-            <!-- ITEM 1: Especial (Exemplo) -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <!-- Imagem -->
-                <!-- CORREÇÃO: Div da imagem agora usa w-full em mobile e w-2/5 em sm: -->
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <!-- Substitua o link abaixo pela URL da sua foto do Especial do Mês -->
-                    <img 
-                        src="https://placehold.co/150x150/f28779/3e2106?text=OFERTA+DO+MES" 
-                        alt="Especial do Mês em Promoção" 
-                        class="portfolio-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/f28779/3e2106?text=OFERTA+DO+MES'"
-                    >
-                </div>
-                <!-- Descrição e CTA -->
-                <!-- CORREÇÃO: Div do texto agora usa w-full em mobile e w-3/5 em sm: -->
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Cenoura c/ Cobertura Especial</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Especial%20do%20M%C3%AAs!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomende o Especial!
-                    </a>
-                </div>
-            </div>
-
-            <!-- SEÇÃO 2: BOLOS CASEIROS (7 ITENS) -->
-            <h3 class="portfolio-subheader text-xl">BOLOS CASEIROS (Fofinhos)</h3>
-            
-            <!-- ITEM 2: BOLO DE BANANA CARAMELIZADO -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <!-- Imagem -->
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img 
-                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/BANANA.png?raw=true" 
-                        alt="Bolo de Banana Caramelizado" 
-                        class="portfolio-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+1'"
-                    >
-                </div>
-                <!-- Descrição e CTA -->
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Banana Caramelizado</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Banana!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
-                    </a>
-                </div>
-            </div>
-
-            <!-- ITEM 3: BOLO DE LARANJA -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <!-- Imagem -->
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img 
-                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/LARANJA.png?raw=true" 
-                        alt="Bolo de Laranja Fresca" 
-                        class="portfolio-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+2'"
-                    >
-                </div>
-                <!-- Descrição e CTA -->
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Laranja</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Laranja!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
-                    </a>
-                </div>
-            </div>
-            
-            <!-- ITEM 4: BOLO DE CENOURA -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CENOURA.png?raw=true" alt="Bolo de Cenoura" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+3'">
-                </div>
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Cenoura c/ Chocolate</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Cenoura!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
-                    </a>
-                </div>
-            </div>
-
-            <!-- ITEM 5: BOLO DE ABACAXI -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/ABACAXI.png?raw=true" alt="Bolo de Fubá" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+4'">
-                </div>
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Abacaxi</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Fub%C3%A1!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
-                    </a>
-                </div>
-            </div>
-            
-            <!-- ITEM 6: BOLO DE CHOCOLATE -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CHOCOLATE%20COM%20MORANGO.png?raw=true" alt="Bolo de Chocolate" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+5'">
-                </div>
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Chocolate com Morango</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
-                    </a>
-                </div>
-            </div>
-
-            <!-- ITEM 7: BOLO DE QUEIJO -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/QUEIJO.png?raw=true" alt="Bolo de Leite Ninho" class="portfolio-image" onerror="this.onerror=null; this.src='https://placehold.co/150x150/ffc8be/3e2106?text=BOLO+CASEIRO+6'">
-                </div>
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolo de Queijo</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Leite%20Ninho!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomendar!
-                    </a>
-                </div>
-            </div>
-
-            
-            <!-- SEÇÃO 3: BOLOS DE ANIVERSÁRIO (1 item com CTA + 18 fotos em grade) -->
-            <h3 class="portfolio-subheader text-xl">BOLOS DE ANIVERSÁRIO (Personalizados)</h3>
-
-            <!-- ITEM 9: BOLO FESTIVO (Modelo principal com CTA de orçamento) -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <!-- Imagem -->
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <img 
-                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/Gemini_Generated_Image_kvyhp6kvyhp6kvyh.png?raw=true" 
-                        alt="Bolo Festivo Personalizado" 
-                        class="portfolio-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/f28779/3e2106?text=BOLO+DE+FESTA'"
-                    >
-                </div>
-                <!-- Descrição e CTA -->
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Bolos de Festa Personalizados</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20um%20Bolo%20Personalizado!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Solicitar Orçamento!
-                    </a>
-                </div>
-            </div>
-
-            <!-- GALERIA DE FOTOS DE ANIVERSÁRIO (18 ITENS SEM TÍTULO/BOTÃO) -->
-            <div class="w-full max-w-md mx-auto text-center mt-4">
-                <p class="text-sm text-gray-700 mb-3">Veja alguns de nossos trabalhos:</p>
-                <div class="photo-grid">
-                    <!-- Gerando 18 placeholders para a galeria (Bolo de Aniversário) -->
-                    <!-- Os links src devem ser substituídos pelas suas 18 fotos reais -->
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(1).png?raw=true" alt="Amostra de Bolo 1">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(2).png?raw=true" alt="Amostra de Bolo 2">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(3).png?raw=true" alt="Amostra de Bolo 3">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(4).png?raw=true" alt="Amostra de Bolo 4">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(5).png?raw=true" alt="Amostra de Bolo 5">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(6).png?raw=true" alt="Amostra de Bolo 6">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(7).png?raw=true" alt="Amostra de Bolo 7">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(8).png?raw=true" alt="Amostra de Bolo 8">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(9).png?raw=true" alt="Amostra de Bolo 9">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(10).png?raw=true" alt="Amostra de Bolo 10">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(11).png?raw=true" alt="Amostra de Bolo 11">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(12).png?raw=true" alt="Amostra de Bolo 12">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(13).png?raw=true" alt="Amostra de Bolo 13">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(14).png?raw=true" alt="Amostra de Bolo 14">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(15).png?raw=true" alt="Amostra de Bolo 15">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(16).png?raw=true" alt="Amostra de Bolo 16">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(17).png?raw=true" alt="Amostra de Bolo 17">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(18).png?raw=true" alt="Amostra de Bolo 18">
-                    <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/ANIVERSARIO/aniversario%20(19).png?raw=true" alt="Amostra de Bolo 19">
-                </div>
-            </div>
-
-            <!-- SEÇÃO 4: OUTROS DOCES -->
-            <h3 class="portfolio-subheader text-xl">OUTROS DOCES</h3>
-
-            <!-- ITEM 10: Outros Doces (Exemplo) -->
-            <div class="portfolio-item w-full max-w-md mx-auto">
-                <!-- Imagem -->
-                <div class="w-full sm:w-2/5 flex-shrink-0">
-                    <!-- Substitua o link abaixo pela URL da sua foto de Outros Doces -->
-                    <img 
-                        src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/Gemini_Generated_Image_1lbadh1lbadh1lba.png?raw=true" 
-                        alt="Brigadeiros e Docinhos" 
-                        class="portfolio-image"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/f28779/3e2106?text=BRIGADEIROS'"
-                    >
-                </div>
-                <!-- Descrição e CTA -->
-                <div class="w-full sm:w-3/5 text-center sm:text-left flex flex-col justify-center">
-                    <h3 class="text-xl font-bold mb-2" style="color: var(--primary-dark);">Brigadeiros Gourmet</h3>
-                    <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20Doces!" target="_blank" class="text-sm font-semibold p-2 rounded-lg whatsapp-link inline-flex items-center justify-center sm:justify-start">
-                        <i class="fab fa-whatsapp mr-2"></i> Encomende Doces!
-                    </a>
-                </div>
-            </div>
-            
-            <!-- NOVO BOTÃO FINAL: BOLO PERSONALIZADO (AO SEU GOSTO) -->
-            <h3 class="portfolio-subheader text-xl">NÃO ENCONTROU O QUE PROCURA?</h3>
-            <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20um%20bolo%20personalizado%20(ao%20meu%20gosto)!" target="_blank" class="link-button portfolio-link flex items-center justify-center w-full max-w-md p-4 rounded-xl text-lg mt-4 mb-8 font-extrabold">
-                <i class="fas fa-palette mr-3"></i>
-                MONTE SEU BOLO PERSONALIZADO!
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="https://www.ifood.com.br/delivery/trindade-go/celia-venancio---massas--bolos-residencial-luzia-monteiro/4bf5f888-df77-4043-9e63-b30855656ada?UTM_Medium=share"
+               target="_blank"
+               rel="noopener"
+               class="inline-flex items-center justify-center gap-3 bg-white text-red-700 font-extrabold rounded-2xl px-6 py-4 hover:bg-orange-50 transition shadow-lg">
+              <i class="fa-solid fa-motorcycle"></i>
+              PEDIR PELO IFOOD
             </a>
 
-
-            <!-- Botão para voltar ao Linktree -->
-            <button onclick="hidePortfolio()" class="back-button inline-flex items-center justify-center w-full max-w-md p-3 mt-8 mb-2 rounded-xl text-lg font-bold" style="background: var(--primary-dark); color: white;">
-                <i class="fas fa-arrow-up mr-2"></i> Voltar aos Links Principais
-            </button>
-            <p class="text-xs text-gray-500 mb-4">Você também pode rolar para cima!</p>
-
+            <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20C%C3%A9lia%20Ven%C3%A2ncio%20e%20gostaria%20de%20fazer%20um%20pedido!"
+               target="_blank"
+               rel="noopener"
+               class="inline-flex items-center justify-center gap-3 bg-white/10 border border-white/30 text-white font-bold rounded-2xl px-6 py-4 hover:bg-white/20 transition">
+              <i class="fa-brands fa-whatsapp"></i>
+              WHATSAPP
+            </a>
+          </div>
         </div>
+
+        <div class="hidden md:flex justify-end fade-up">
+          <div class="relative w-[390px]">
+            <div class="absolute -inset-4 bg-white/10 rounded-[2.5rem] rotate-3"></div>
+            <img
+              src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CHOCOLATE%20COM%20MORANGO.png?raw=true"
+              alt="Bolo de chocolate com morango"
+              class="relative w-full aspect-square object-cover rounded-[2rem] border-8 border-white/20 shadow-2xl"
+              onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <!-- BENEFITS -->
+  <section class="max-w-6xl mx-auto px-5 -mt-7 relative z-10">
+    <div class="bg-white rounded-3xl shadow-soft border border-stone-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-stone-100">
+      <div class="p-5 text-center">
+        <i class="fa-solid fa-house text-red-600 text-xl mb-2"></i>
+        <p class="font-bold text-sm">Sabor caseiro</p>
+      </div>
+      <div class="p-5 text-center">
+        <i class="fa-solid fa-heart text-red-600 text-xl mb-2"></i>
+        <p class="font-bold text-sm">Feito com carinho</p>
+      </div>
+      <div class="p-5 text-center">
+        <i class="fa-solid fa-motorcycle text-red-600 text-xl mb-2"></i>
+        <p class="font-bold text-sm">Peça pelo iFood</p>
+      </div>
+      <div class="p-5 text-center">
+        <i class="fa-solid fa-cake-candles text-red-600 text-xl mb-2"></i>
+        <p class="font-bold text-sm">Encomendas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <main id="cardapio" class="max-w-6xl mx-auto px-5 py-16">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+      <div>
+        <span class="text-red-600 font-extrabold uppercase tracking-widest text-xs">Nosso cardápio</span>
+        <h2 class="serif text-4xl md:text-5xl font-extrabold mt-2">Escolha seu favorito</h2>
+        <p class="text-stone-500 mt-2">Veja algumas das opções da Célia Venâncio.</p>
+      </div>
+
+      <a href="https://www.ifood.com.br/delivery/trindade-go/celia-venancio---massas--bolos-residencial-luzia-monteiro/4bf5f888-df77-4043-9e63-b30855656ada?UTM_Medium=share"
+         target="_blank" rel="noopener"
+         class="inline-flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white font-extrabold rounded-xl px-5 py-3 transition">
+        <i class="fa-solid fa-bag-shopping"></i>
+        Ver cardápio no iFood
+      </a>
+    </div>
+
+    <div id="categories" class="flex gap-2 overflow-x-auto pb-3 mb-8">
+      <button class="category-pill active border rounded-full px-5 py-2.5 font-bold text-sm" data-category="todos">Todos</button>
+      <button class="category-pill bg-white border border-stone-200 rounded-full px-5 py-2.5 font-bold text-sm" data-category="massas">🍝 Massas</button>
+      <button class="category-pill bg-white border border-stone-200 rounded-full px-5 py-2.5 font-bold text-sm" data-category="caseiros">🍰 Bolos caseiros</button>
+      <button class="category-pill bg-white border border-stone-200 rounded-full px-5 py-2.5 font-bold text-sm" data-category="festa">🎂 Bolos de festa</button>
+      <button class="category-pill bg-white border border-stone-200 rounded-full px-5 py-2.5 font-bold text-sm" data-category="doces">🍬 Doces</button>
+    </div>
+
+    <div id="products" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- MASSAS / PRATOS -->
+      <article class="product-card rounded-3xl overflow-hidden" data-category="massas">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/PRATO%20FEITO.png?raw=true"
+             alt="Prato da Célia Venâncio" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Massas+e+Pratos'">
+        <div class="p-5">
+          <span class="text-xs font-extrabold text-red-600 uppercase">Destaque</span>
+          <h3 class="font-extrabold text-xl mt-1">Massas & Pratos</h3>
+          <p class="text-stone-500 text-sm mt-2">Opções preparadas para uma refeição caprichada.</p>
+          <a href="https://www.ifood.com.br/delivery/trindade-go/celia-venancio---massas--bolos-residencial-luzia-monteiro/4bf5f888-df77-4043-9e63-b30855656ada?UTM_Medium=share"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-red-600 text-white rounded-xl py-3 font-bold hover:bg-red-700 transition">
+            Pedir no iFood
+          </a>
+        </div>
+      </article>
+
+      <!-- BOLOS CASEIROS -->
+      <article class="product-card rounded-3xl overflow-hidden" data-category="caseiros">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/BANANA.png?raw=true"
+             alt="Bolo de banana caramelizado" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Bolo+de+Banana'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Bolo de Banana Caramelizado</h3>
+          <p class="text-stone-500 text-sm mt-2">Bolo caseiro fofinho com aquele sabor de casa.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Banana!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card rounded-3xl overflow-hidden" data-category="caseiros">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/LARANJA.png?raw=true"
+             alt="Bolo de laranja" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Bolo+de+Laranja'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Bolo de Laranja</h3>
+          <p class="text-stone-500 text-sm mt-2">Clássico, fofinho e com sabor marcante de laranja.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Laranja!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card rounded-3xl overflow-hidden" data-category="caseiros">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CENOURA.png?raw=true"
+             alt="Bolo de cenoura com chocolate" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Bolo+de+Cenoura'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Bolo de Cenoura com Chocolate</h3>
+          <p class="text-stone-500 text-sm mt-2">Um dos clássicos que não pode faltar.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Cenoura!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card rounded-3xl overflow-hidden" data-category="caseiros">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/ABACAXI.png?raw=true"
+             alt="Bolo de abacaxi" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Bolo+de+Abacaxi'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Bolo de Abacaxi</h3>
+          <p class="text-stone-500 text-sm mt-2">Uma opção caseira para deixar o café ainda melhor.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Abacaxi!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card rounded-3xl overflow-hidden" data-category="caseiros">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/CHOCOLATE%20COM%20MORANGO.png?raw=true"
+             alt="Bolo de chocolate com morango" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Chocolate+com+Morango'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Bolo de Chocolate com Morango</h3>
+          <p class="text-stone-500 text-sm mt-2">Chocolate e morango em uma combinação especial.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Chocolate%20com%20Morango!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
+
+      <article class="product-card rounded-3xl overflow-hidden" data-category="caseiros">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/CASEIRO/QUEIJO.png?raw=true"
+             alt="Bolo de queijo" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Bolo+de+Queijo'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Bolo de Queijo</h3>
+          <p class="text-stone-500 text-sm mt-2">Bolo caseiro com aquele toque tradicional.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20o%20Bolo%20de%20Queijo!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
+
+      <!-- BOLOS DE FESTA -->
+      <article class="product-card rounded-3xl overflow-hidden" data-category="festa">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/Gemini_Generated_Image_kvyhp6kvyhp6kvyh.png?raw=true"
+             alt="Bolo de festa personalizado" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Bolo+Personalizado'">
+        <div class="p-5">
+          <span class="text-xs font-extrabold text-red-600 uppercase">Encomendas</span>
+          <h3 class="font-extrabold text-xl mt-1">Bolos de Festa Personalizados</h3>
+          <p class="text-stone-500 text-sm mt-2">Seu bolo do seu jeito para aniversários e ocasiões especiais.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20um%20bolo%20personalizado!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Solicitar orçamento
+          </a>
+        </div>
+      </article>
+
+      <!-- DOCES -->
+      <article class="product-card rounded-3xl overflow-hidden" data-category="doces">
+        <img src="https://github.com/Goguenblouts/Celia-Venancio-Confeitaria/blob/main/images/Gemini_Generated_Image_1lbadh1lbadh1lba.png?raw=true"
+             alt="Brigadeiros gourmet e doces" class="product-image"
+             onerror="this.src='https://placehold.co/700x700/f4ebe3/8e1717?text=Brigadeiros+Gourmet'">
+        <div class="p-5">
+          <h3 class="font-extrabold text-xl">Brigadeiros Gourmet</h3>
+          <p class="text-stone-500 text-sm mt-2">Doces para matar a vontade ou deixar sua comemoração ainda melhor.</p>
+          <a href="https://wa.me/5562994373918?text=Ol%C3%A1%2C%20gostaria%20de%20encomendar%20doces!"
+             target="_blank" rel="noopener"
+             class="mt-4 w-full inline-flex justify-center items-center gap-2 bg-green-600 text-white rounded-xl py-3 font-bold hover:bg-green-700 transition">
+            <i class="fa-brands fa-whatsapp"></i> Encomendar
+          </a>
+        </div>
+      </article>
 
     </div>
 
-    <!-- Script: Garante que as animações de entrada rodem apenas uma vez e a lógica de troca de seção -->
-    <script>
-        const linksSection = document.getElementById('links-section');
-        const portfolioSection = document.getElementById('portfolio-section');
+    <!-- IFOOD CTA -->
+    <section class="mt-14 bg-[#f7e9e1] rounded-[2rem] p-7 md:p-10 border border-[#ead8cd]">
+      <div class="grid md:grid-cols-[1fr_auto] gap-7 items-center">
+        <div>
+          <span class="text-red-700 font-extrabold text-xs uppercase tracking-widest">Quer pedir agora?</span>
+          <h2 class="serif text-3xl md:text-4xl font-extrabold mt-2">Seu pedido está a poucos cliques.</h2>
+          <p class="text-stone-600 mt-2 max-w-2xl">
+            Para consultar o cardápio atualizado, preços, disponibilidade e entrega, acesse nossa loja no iFood.
+          </p>
+        </div>
+        <a href="https://www.ifood.com.br/delivery/trindade-go/celia-venancio---massas--bolos-residencial-luzia-monteiro/4bf5f888-df77-4043-9e63-b30855656ada?UTM_Medium=share"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-3 bg-red-600 text-white font-extrabold rounded-2xl px-7 py-4 hover:bg-red-700 transition shadow-lg">
+          <i class="fa-solid fa-motorcycle"></i>
+          ABRIR IFOOD
+        </a>
+      </div>
+    </section>
+  </main>
 
-        // Função para mostrar a seção de Portfólio
-        function showPortfolio(event) {
-            event.preventDefault(); // Impede o salto da âncora
-            
-            // 1. Esconde a seção de links
-            linksSection.style.opacity = '0';
-            linksSection.style.transform = 'translateY(-20px)';
-            
-            // 2. Após a transição (400ms), esconde totalmente e mostra a nova
-            setTimeout(() => {
-                linksSection.style.display = 'none';
-                
-                // 3. Mostra a seção de portfólio
-                portfolioSection.style.position = 'static'; // Volta para o fluxo normal para ocupar espaço
-                portfolioSection.style.pointerEvents = 'auto'; // Reabilita cliques
-                
-                // 4. Anima a entrada
-                setTimeout(() => {
-                    portfolioSection.style.opacity = '1';
-                    portfolioSection.style.transform = 'translateY(0)';
-                    // Garante que o scroll vá para o topo da seção de portfólio
-                    portfolioSection.scrollTop = 0; 
-                }, 50); // Pequeno atraso para garantir que o display mude
-                
-            }, 400); 
-        }
+  <!-- ABOUT -->
+  <section id="sobre" class="bg-white border-y border-stone-100">
+    <div class="max-w-6xl mx-auto px-5 py-16">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <span class="text-red-600 font-extrabold uppercase tracking-widest text-xs">Célia Venâncio</span>
+          <h2 class="serif text-4xl md:text-5xl font-extrabold mt-2">Comida que lembra casa.</h2>
+          <p class="text-stone-600 leading-relaxed mt-5">
+            A Célia Venâncio reúne massas, pratos, bolos e doces preparados com aquele cuidado
+            que faz diferença. Aqui, a ideia é simples: comida gostosa, bem feita e com carinho.
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <span class="bg-stone-100 rounded-full px-4 py-2 text-sm font-bold">🍝 Massas</span>
+            <span class="bg-stone-100 rounded-full px-4 py-2 text-sm font-bold">🍰 Bolos</span>
+            <span class="bg-stone-100 rounded-full px-4 py-2 text-sm font-bold">🍬 Doces</span>
+            <span class="bg-stone-100 rounded-full px-4 py-2 text-sm font-bold">🎂 Encomendas</span>
+          </div>
+        </div>
 
-        // Função para voltar para a seção de Links
-        function hidePortfolio() {
-            // 1. Esconde a seção de portfólio
-            portfolioSection.style.opacity = '0';
-            portfolioSection.style.transform = 'translateY(20px)';
+        <div class="bg-[#fffaf3] rounded-3xl p-7 border border-stone-100">
+          <h3 class="font-extrabold text-xl">Onde pedir</h3>
+          <div class="mt-5 space-y-4">
+            <a href="https://www.ifood.com.br/delivery/trindade-go/celia-venancio---massas--bolos-residencial-luzia-monteiro/4bf5f888-df77-4043-9e63-b30855656ada?UTM_Medium=share"
+               target="_blank" rel="noopener"
+               class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-stone-200 hover:border-red-300 transition">
+              <div class="w-11 h-11 rounded-xl bg-red-100 text-red-700 flex items-center justify-center">
+                <i class="fa-solid fa-motorcycle"></i>
+              </div>
+              <div>
+                <p class="font-extrabold">iFood</p>
+                <p class="text-sm text-stone-500">Cardápio e pedidos</p>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-stone-400"></i>
+            </a>
 
-            // 2. Após a transição (400ms), esconde totalmente e mostra a de links
-            setTimeout(() => {
-                portfolioSection.style.position = 'absolute'; // Volta a ser absoluto/oculto
-                portfolioSection.style.pointerEvents = 'none';
-                
-                // 3. Mostra a seção de links
-                linksSection.style.display = 'block';
-                
-                // 4. Anima a entrada
-                setTimeout(() => {
-                    linksSection.style.opacity = '1';
-                    linksSection.style.transform = 'translateY(0)';
-                }, 50);
+            <a href="https://wa.me/5562994373918"
+               target="_blank" rel="noopener"
+               class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-stone-200 hover:border-green-300 transition">
+              <div class="w-11 h-11 rounded-xl bg-green-100 text-green-700 flex items-center justify-center">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div>
+                <p class="font-extrabold">WhatsApp</p>
+                <p class="text-sm text-stone-500">(62) 99437-3918</p>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-stone-400"></i>
+            </a>
 
-            }, 400);
-        }
+            <a href="https://www.instagram.com/confeitaria.cv"
+               target="_blank" rel="noopener"
+               class="flex items-center gap-4 p-4 rounded-2xl bg-white border border-stone-200 hover:border-pink-300 transition">
+              <div class="w-11 h-11 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              <div>
+                <p class="font-extrabold">Instagram</p>
+                <p class="text-sm text-stone-500">@confeitaria.cv</p>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-stone-400"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedElements = document.querySelectorAll('.animate-fade-in-up');
-            animatedElements.forEach(el => {
-                el.addEventListener('animationend', () => {
-                    // Remove as classes de animação e atraso após a conclusão
-                    el.classList.remove('animate-fade-in-up', 'delay-100', 'delay-300', 'delay-500', 'delay-700', 'delay-900', 'delay-1000', 'delay-1100', 'delay-1200');
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                });
-            });
+  <!-- CONTACT -->
+  <section id="contato" class="max-w-6xl mx-auto px-5 py-16 pb-32 md:pb-16">
+    <div class="text-center">
+      <span class="text-red-600 font-extrabold uppercase tracking-widest text-xs">Fale com a gente</span>
+      <h2 class="serif text-4xl font-extrabold mt-2">Vamos preparar seu pedido?</h2>
+      <p class="text-stone-500 mt-2">Para pedidos personalizados e encomendas, fale diretamente pelo WhatsApp.</p>
+
+      <div class="mt-7 flex flex-col sm:flex-row justify-center gap-3">
+        <a href="https://wa.me/5562994373918"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-3 bg-green-600 text-white font-extrabold rounded-2xl px-7 py-4 hover:bg-green-700 transition">
+          <i class="fa-brands fa-whatsapp"></i>
+          Falar no WhatsApp
+        </a>
+        <a href="https://www.instagram.com/confeitaria.cv"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-3 bg-stone-900 text-white font-extrabold rounded-2xl px-7 py-4 hover:bg-black transition">
+          <i class="fa-brands fa-instagram"></i>
+          @confeitaria.cv
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-stone-950 text-white">
+    <div class="max-w-6xl mx-auto px-5 py-9 flex flex-col md:flex-row gap-4 justify-between items-center">
+      <div>
+        <p class="font-extrabold">Célia Venâncio — Massas & Bolos</p>
+        <p class="text-white/50 text-sm mt-1">Trindade – GO</p>
+      </div>
+      <p class="text-white/40 text-xs">© <span id="year"></span> Célia Venâncio. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- MOBILE CTA -->
+  <div class="sticky-order md:hidden">
+    <a href="https://www.ifood.com.br/delivery/trindade-go/celia-venancio---massas--bolos-residencial-luzia-monteiro/4bf5f888-df77-4043-9e63-b30855656ada?UTM_Medium=share"
+       target="_blank" rel="noopener"
+       class="w-full flex items-center justify-center gap-3 bg-red-600 text-white rounded-2xl py-4 font-extrabold shadow-2xl">
+      <i class="fa-solid fa-motorcycle"></i>
+      PEDIR PELO IFOOD
+    </a>
+  </div>
+
+  <div id="toast" class="toast fixed bottom-5 left-1/2 z-[60] bg-stone-950 text-white px-5 py-3 rounded-xl text-sm font-bold">
+    Categoria atualizada
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll(".category-pill");
+    const products = document.querySelectorAll("#products article");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const category = button.dataset.category;
+
+        buttons.forEach(b => b.classList.remove("active"));
+        button.classList.add("active");
+
+        products.forEach(product => {
+          const visible = category === "todos" || product.dataset.category === category;
+          product.style.display = visible ? "" : "none";
         });
-    </script>
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
-
-
-
